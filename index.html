@@ -39,7 +39,7 @@
 <div class="app-container">
     <h1>每日零錢鈔票清點器</h1>
     <div class="author-tag">✨ 書典製作 ✨</div>
-    <div class="subtitle">金庫預留款基準：$25,000 元</div>
+    <div class="subtitle">金庫留存目標基準：$25,000 元</div>
 
     <div class="section-title">零錢杯區域 (整杯點擊)</div>
     <div class="row-item">
@@ -108,20 +108,20 @@
         <div class="subtotal-col">$ <span id="sub50_loose">0</span></div>
     </div>
 
-    <div class="section-title">固定扣除項目</div>
+    <div class="section-title">核定目標</div>
     <div class="static-row">
-        <div class="formula-label" style="color: var(--danger-color);">[ 扣除 ] 預留金庫款</div>
-        <div class="subtotal-col" style="color: var(--danger-color); font-size: 16px;">$ 25,000</div>
+        <div class="formula-label" style="color: var(--primary-color);">金庫應留存總額</div>
+        <div class="subtotal-col" style="color: var(--primary-color); font-size: 16px;">$ 25,000</div>
     </div>
 
     <div class="total-box">
-        <div class="box-title">1. 桌上清點總金額</div>
+        <div class="box-title">1. 當前清點總金額</div>
         <div class="box-amount">$ <span id="grandTotal">0</span></div>
     </div>
     <div class="result-box" id="resultCard">
-        <div class="box-title" id="resultTitle">2. 金庫收退款計算結果</div>
+        <div class="box-title" id="resultTitle">2. 收銀機分配計算結果</div>
         <div class="box-amount">$ <span id="finalResult">0</span></div>
-        <div class="hint-text" id="resultHint">請點擊上方按鈕開始計算</div>
+        <div class="hint-text" id="resultHint">請輸入上方數量開始計算</div>
     </div>
 
     <button class="btn-reset" onclick="resetForm()">一鍵清空重算</button>
@@ -129,7 +129,7 @@
 
 <script>
     // 🔒 業界核心防盜系統：禁止右鍵、長按、複製與開發者工具快捷鍵
-    document.addEventListener('contextmenu', _0x1a2b => _0x1a2b.preventDefault());
+    document.addEventListener('contextmenu', _0x1b2b => _0x1a2b.preventDefault());
     window.addEventListener('selectstart', _0x3c4d => _0x3c4d.preventDefault());
     document.onkeydown = function (_0x5e6f) {
         if (_0x5e6f.keyCode === 123 || (_0x5e6f.ctrlKey && _0x5e6f.shiftKey && (_0x5e6f.keyCode === 73 || _0x5e6f.keyCode === 74)) || (_0x5e6f.ctrlKey && _0x5e6f.keyCode === 85)) {
@@ -137,8 +137,8 @@
         }
     };
 
-    // 🕵️ 高強度核心計算邏輯混淆（Obfuscated Code），使逆向工程失效
-    var _0x4f12=["value","getElementById","innerText","toLocaleString","background","linear-gradient(135deg, #2c3e50, #1a252f)","linear-gradient(135deg, #d35400, #e67e22)","linear-gradient(135deg, #27ae60, #2ecc71)","linear-gradient(135deg, #2980b9, #3498db)","querySelectorAll",'input[type="number"]',"forEach"];function stepChange(_0x2b3c,_0x1f5d){var _0x0a1b=document[_0x4f12[1]](_0x2b3c);var _0x5c3e=parseInt(_0x0a1b[_0x4f12[0]])||0;_0x5c3e+=_0x1f5d;if(_0x5c3e<0){_0x5c3e=0} ;_0x0a1b[_0x4f12[0]]=_0x5c3e;calculateTotal()}function calculateTotal(){var _0x11=parseInt(document[_0x4f12[1]]("coin1")[_0x4f12[0]])||0;var _0x55=parseInt(document[_0x4f12[1]]("coin5")[_0x4f12[0]])||0;var _0x10=parseInt(document[_0x4f12[1]]("coin1")[_0x4f12[0]])||0;var _0x10=parseInt(document[_0x4f12[1]]("coin10")[_0x4f12[0]])||0;var _0x50c=parseInt(document[_0x4f12[1]]("coin50_cup")[_0x4f12[0]])||0;var _0x1k=parseInt(document[_0x4f12[1]]("note1000")[_0x4f12[0]])||0;var _0x1h=parseInt(document[_0x4f12[1]]("note100")[_0x4f12[0]])||0;var _0x50l=parseInt(document[_0x4f12[1]]("coin50_loose")[_0x4f12[0]])||0;var _0x01=_0x11*50;var _0x05=_0x55*200;var _0x010=_0x10*300;var _0x050c=_0x50c*500;var _0x01k=_0x1k*1000;var _0x01h=_0x1h*100;var _0x050l=_0x50l*50;document[_0x4f12[1]]("sub1")[_0x4f12[2]]=_0x01[_0x4f12[3]]();document[_0x4f12[1]]("sub5")[_0x4f12[2]]=_0x05[_0x4f12[3]]();document[_0x4f12[1]]("sub10")[_0x4f12[2]]=_0x010[_0x4f12[3]]();document[_0x4f12[1]]("sub50_cup")[_0x4f12[2]]=_0x050c[_0x4f12[3]]();document[_0x4f12[1]]("sub1000")[_0x4f12[2]]=_0x01k[_0x4f12[3]]();document[_0x4f12[1]]("sub100")[_0x4f12[2]]=_0x01h[_0x4f12[3]]();document[_0x4f12[1]]("sub50_loose")[_0x4f12[2]]=_0x050l[_0x4f12[3]]();var _0xgt=_0x01+_0x05+_0x010+_0x050c+_0x01k+_0x01h+_0x050l;document[_0x4f12[1]]("grandTotal")[_0x4f12[2]]=_0xgt[_0x4f12[3]]();var _0xdf=25000-_0xgt;var _0xrc=document[_0x4f12[1]]("resultCard");var _0xrt=document[_0x4f12[1]]("resultTitle");var _0xfr=document[_0x4f12[1]]("finalResult");var _0xrh=document[_0x4f12[1]]("resultHint");if(_0xgt===0){_0xfr[_0x4f12[2]]="0";_0xrt[_0x4f12[2]]="2. 金庫收退款計算結果";_0xrh[_0x4f12[2]]="請點擊上方按鈕開始計算";_0xrc["style"][_0x4f12[4]]=_0x4f12[5]}else{if(_0xdf>0){_0xfr[_0x4f12[2]]="+"+_0xdf[_0x4f12[3]]();_0xrt[_0x4f12[2]]="2. 【金庫要拿錢出來】補給桌上";_0xrh[_0x4f12[2]]="桌上還少 $"+_0xdf[_0x4f12[3]]()+" 元才滿兩萬五";_0xrc["style"][_0x4f12[4]]=_0x4f12[6]}else{if(_0xdf<0){var _0xde=Math["abs"](_0xdf);_0xfr[_0x4f12[2]]="-"+_0xde[_0x4f12[3]]();_0xrt[_0x4f12[2]]="2. 【桌上多餘現金】請存回金庫";_0xrh[_0x4f12[2]]="請拿 $"+_0xde[_0x4f12[3]]()+" 元現金收進金庫中";_0xrc["style"][_0x4f12[4]]=_0x4f12[7]}else{_0xfr[_0x4f12[2]]="0";_0xrt[_0x4f12[2]]="2. 金額剛剛好！";_0xrh[_0x4f12[2]]="不需從金庫拿錢或存錢";_0xrc["style"][_0x4f12[4]]=_0x4f12[8]}}}}function resetForm(){document[_0x4f12[9]](_0x4f12[10])[_0x4f12[11]](function(_0x22){_0x22[_0x4f12[0]]="0"});calculateTotal()}
+    // 🕵️ 高強度核心計算邏輯混淆（Obfuscated Code），符合金庫核算邏輯
+    var _0x4f12=["value","getElementById","innerText","toLocaleString","background","linear-gradient(135deg, #2c3e50, #1a252f)","linear-gradient(135deg, #d35400, #e67e22)","linear-gradient(135deg, #27ae60, #2ecc71)","linear-gradient(135deg, #2980b9, #3498db)","querySelectorAll",'input[type="number"]',"forEach"];function stepChange(_0x2b3c,_0x1f5d){var _0x0a1b=document[_0x4f12[1]](_0x2b3c);var _0x5c3e=parseInt(_0x0a1b[_0x4f12[0]])||0;_0x5c3e+=_0x1f5d;if(_0x5c3e<0){_0x5c3e=0} ;_0x0a1b[_0x4f12[0]]=_0x5c3e;calculateTotal()}function calculateTotal(){var _0x11=parseInt(document[_0x4f12[1]]("coin1")[_0x4f12[0]])||0;var _0x55=parseInt(document[_0x4f12[1]]("coin5")[_0x4f12[0]])||0;var _0x10=parseInt(document[_0x4f12[1]]("coin10")[_0x4f12[0]])||0;var _0x50c=parseInt(document[_0x4f12[1]]("coin50_cup")[_0x4f12[0]])||0;var _0x1k=parseInt(document[_0x4f12[1]]("note1000")[_0x4f12[0]])||0;var _0x1h=parseInt(document[_0x4f12[1]]("note100")[_0x4f12[0]])||0;var _0x50l=parseInt(document[_0x4f12[1]]("coin50_loose")[_0x4f12[0]])||0;var _0x01=_0x11*50;var _0x05=_0x55*200;var _0x010=_0x10*300;var _0x050c=_0x50c*500;var _0x01k=_0x1k*1000;var _0x01h=_0x1h*100;var _0x050l=_0x50l*50;document[_0x4f12[1]]("sub1")[_0x4f12[2]]=_0x01[_0x4f12[3]]();document[_0x4f12[1]]("sub5")[_0x4f12[2]]=_0x05[_0x4f12[3]]();document[_0x4f12[1]]("sub10")[_0x4f12[2]]=_0x010[_0x4f12[3]]();document[_0x4f12[1]]("sub50_cup")[_0x4f12[2]]=_0x050c[_0x4f12[3]]();document[_0x4f12[1]]("sub1000")[_0x4f12[2]]=_0x01k[_0x4f12[3]]();document[_0x4f12[1]]("sub100")[_0x4f12[2]]=_0x01h[_0x4f12[3]]();document[_0x4f12[1]]("sub50_loose")[_0x4f12[2]]=_0x050l[_0x4f12[3]]();var _0xgt=_0x01+_0x05+_0x010+_0x050c+_0x01k+_0x01h+_0x050l;document[_0x4f12[1]]("grandTotal")[_0x4f12[2]]=_0xgt[_0x4f12[3]]();var _0xdf=25000-_0xgt;var _0xrc=document[_0x4f12[1]]("resultCard");var _0xrt=document[_0x4f12[1]]("resultTitle");var _0xfr=document[_0x4f12[1]]("finalResult");var _0xrh=document[_0x4f12[1]]("resultHint");if(_0xgt===0){_0xfr[_0x4f12[2]]="0";_0xrt[_0x4f12[2]]="2. 收銀機分配計算結果";_0xrh[_0x4f12[2]]="請輸入上方數量開始計算";_0xrc["style"][_0x4f12[4]]=_0x4f12[5]}else{if(_0xdf>0){_0xfr[_0x4f12[2]]="+"+_0xdf[_0x4f12[3]]();_0xrt[_0x4f12[2]]="2. 【需從收銀機拿錢】補足金庫";_0xrh[_0x4f12[2]]="金庫還少 $"+_0xdf[_0x4f12[3]]()+" 元，請自收銀機挪移補足";_0xrc["style"][_0x4f12[4]]=_0x4f12[6]}else{if(_0xdf<0){var _0xde=Math["abs"](_0xdf);_0xfr[_0x4f12[2]]="-"+_0xde[_0x4f12[3]]();_0xrt[_0x4f12[2]]="2. 【溢出金額】請放回收銀機";_0xrh[_0x4f12[2]]="金庫已滿兩萬五，多餘的 $"+_0xde[_0x4f12[3]]()+" 元請放回收銀機";_0xrc["style"][_0x4f12[4]]=_0x4f12[7]}else{_0xfr[_0x4f12[2]]="0";_0xrt[_0x4f12[2]]="2. 金額剛剛好！";_0xrh[_0x4f12[2]]="剛好滿兩萬五，無需與收銀機進行金流挪移";_0xrc["style"][_0x4f12[4]]=_0x4f12[8]}}}}function resetForm(){document[_0x4f12[9]](_0x4f12[10])[_0x4f12[11]](function(_0x22){_0x22[_0x4f12[0]]="0"});calculateTotal()}
 </script>
 </body>
 </html>
