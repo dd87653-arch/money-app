@@ -12,26 +12,30 @@
         .author-tag { text-align: center; color: var(--accent-color); font-size: 13px; font-weight: bold; margin-bottom: 8px; letter-spacing: 2px; }
         .subtitle { text-align: center; color: #7f8c8d; font-size: 12px; margin-bottom: 20px; }
         .section-title { font-size: 15px; font-weight: bold; color: var(--primary-color); border-left: 4px solid var(--accent-color); padding-left: 8px; margin: 20px 0 12px 0; }
-        .row-item { display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; }
-        .info-col { flex: 1; min-width: 85px; }
-        .formula-label { font-size: 14px; font-weight: bold; }
-        .formula-detail { font-size: 11px; color: #7f8c8d; margin-top: 2px; }
         
-        /* 控制項區塊 */
-        .control-col { display: flex; align-items: center; background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; overflow: hidden; width: 130px; height: 36px; }
-        /* 仟鈔專用控制項：拓寬以容納 4 個按鈕 */
-        .control-col-wide { display: flex; align-items: center; background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; overflow: hidden; width: 210px; height: 36px; }
+        /* 橫列基礎排版：允許內容彈性延伸，解決擠壓問題 */
+        .row-item { display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; gap: 8px; }
+        .info-col { flex: 1; min-width: 70px; }
+        .formula-label { font-size: 14px; font-weight: bold; white-space: nowrap; }
+        .formula-detail { font-size: 11px; color: #7f8c8d; margin-top: 2px; white-space: nowrap; }
         
-        .btn-calc { width: 35px; height: 100%; border: none; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+        /* 標準控制項（一般硬幣鈔票） */
+        .control-col { display: flex; align-items: center; background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; overflow: hidden; width: 110px; height: 36px; flex-shrink: 0; }
+        
+        /* 仟鈔專用控制項：取消固定寬度，改用彈性包覆，確保按鈕絕對能顯示出來 */
+        .control-col-wide { display: flex; align-items: center; background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; overflow: hidden; height: 36px; flex-shrink: 0; }
+        
+        .btn-calc { width: 35px; height: 100%; border: none; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; flex-shrink: 0; }
         .btn-minus { background: #fff5f5; color: var(--danger-color); }
         .btn-plus { background: #f0fff4; color: var(--accent-color); }
         
-        /* 快捷鍵樣式：醒目的淺藍色 */
-        .btn-quick { background: #ebf5fb; color: #2980b9; font-size: 12px; border-left: 1px solid #e1e8ed; width: 45px; }
+        /* 快捷鍵樣式：微調寬度至 38px，確保在窄螢幕上不溢出 */
+        .btn-quick { background: #ebf5fb; color: #2980b9; font-size: 11px; border-left: 1px solid #e1e8ed; width: 38px; height: 100%; border-top: none; border-bottom: none; border-right: none; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; flex-shrink: 0; }
         .btn-quick:active { background: #d4e6f1; }
         
-        .input-wrapper { flex: 1; min-width: 35px; }
-        .subtotal-col { flex: 1; text-align: right; font-weight: bold; color: var(--primary-color); font-size: 15px; min-width: 75px; }
+        .input-wrapper { width: 40px; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .subtotal-col { text-align: right; font-weight: bold; color: var(--primary-color); font-size: 15px; min-width: 70px; flex-shrink: 0; }
+        
         .static-row { display: flex; justify-content: space-between; align-items: center; background: #fff5f5; padding: 12px; border-radius: 10px; font-size: 14px; }
         .total-box { background: #f1f2f6; color: var(--primary-color); border-radius: 12px; padding: 12px; text-align: center; margin-top: 20px; border: 1px solid #dcdde1; }
         .result-box { background: linear-gradient(135deg, #2c3e50, #1a252f); color: white; border-radius: 12px; padding: 16px; text-align: center; margin-top: 12px; }
@@ -40,6 +44,7 @@
         .result-box .box-amount { font-size: 28px; font-weight: 800; }
         .hint-text { font-size: 12px; margin-top: 6px; color: #ffbe76; }
         .btn-reset { width: 100%; background: #7f8c8d; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 16px; }
+        
         input[type="number"] { width: 100%; border: none; text-align: center; font-size: 16px; font-weight: bold; color: var(--primary-color); background: transparent; padding: 0; }
         input[type="number"]:focus { outline: none; }
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
@@ -91,14 +96,15 @@
     </div>
 
     <div class="section-title">抽屜收納盒 (張數與散錢)</div>
+    <!-- 1000元鈔包含 ＋、－、+5、+10 快捷鍵 -->
     <div class="row-item">
         <div class="info-col"><div class="formula-label">1000元鈔</div><div class="formula-detail">面額 $1,000 / 張</div></div>
         <div class="control-col-wide">
             <button class="btn-calc btn-minus" onclick="stepChange('note1000', -1)">－</button>
             <div class="input-wrapper"><input type="number" id="note1000" min="0" value="0" oninput="calculateTotal()"></div>
             <button class="btn-calc btn-plus" onclick="stepChange('note1000', 1)">＋</button>
-            <button class="btn-calc btn-quick" onclick="stepChange('note1000', 5)">+5</button>
-            <button class="btn-calc btn-quick" onclick="stepChange('note1000', 10)">+10</button>
+            <button class="btn-quick" onclick="stepChange('note1000', 5)">+5</button>
+            <button class="btn-quick" onclick="stepChange('note1000', 10)">+10</button>
         </div>
         <div class="subtotal-col">$ <span id="sub1000">0</span></div>
     </div>
@@ -141,6 +147,7 @@
 </div>
 
 <script>
+    // 🔒 核心防盜系統
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
     window.addEventListener('selectstart', function(e) { e.preventDefault(); });
     document.onkeydown = function (e) {
@@ -149,6 +156,7 @@
         }
     };
 
+    // 🟢 白話文計算核心
     function stepChange(id, val) {
         var inputElement = document.getElementById(id);
         var current = parseInt(inputElement.value) || 0;
@@ -218,6 +226,7 @@
         }
     }
 
+    // 一鍵清空
     function resetForm() {
         var inputs = document.querySelectorAll('input[type="number"]');
         inputs.forEach(function(input) {
