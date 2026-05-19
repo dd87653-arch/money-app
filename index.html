@@ -19,14 +19,14 @@
         
         /* 控制項區塊 */
         .control-col { display: flex; align-items: center; background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; overflow: hidden; width: 130px; height: 36px; }
-        /* 仟鈔專用控制項：拓寬至 200px 確保容納 4 個按鈕與輸入框不擁擠 */
-        .control-col-wide { display: flex; align-items: center; background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; overflow: hidden; width: 200px; height: 36px; }
+        /* 仟鈔專用控制項：加寬到 210px 確保 4 個按鈕加輸入框完全不擁擠 */
+        .control-col-wide { display: flex; align-items: center; background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; overflow: hidden; width: 210px; height: 36px; }
         
         .btn-calc { width: 35px; height: 100%; border: none; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
         .btn-minus { background: #fff5f5; color: var(--danger-color); }
         .btn-plus { background: #f0fff4; color: var(--accent-color); }
         
-        /* 快捷鍵樣式：顯眼的藍色與細邊框區隔 */
+        /* 快捷鍵樣式：醒目的淺藍色 */
         .btn-quick { background: #ebf5fb; color: #2980b9; font-size: 12px; border-left: 1px solid #e1e8ed; width: 45px; }
         .btn-quick:active { background: #d4e6f1; }
         
@@ -151,8 +151,88 @@
         }
     };
 
-    // 🕵️ 精準校對：高強度防破解計算核心
-    var _0x51ae=["value","getElementById","innerText","toLocaleString","style","background","linear-gradient(135deg, #2c3e50, #1a252f)","linear-gradient(135deg, #d35400, #e67e22)","linear-gradient(135deg, #27ae60, #2ecc71)","linear-gradient(135deg, #2980b9, #3498db)","querySelectorAll",'input[type="number"]',"forEach"];function stepChange(id,val){var el=document[_0x51ae[1]](id);var current=parseInt(el[_0x51ae[0]])||0;current+=val;if(current<0){current=0}el[_0x51ae[0]]=current;calculateTotal()}function calculateTotal(){var c1=parseInt(document[_0x51ae[1]]("coin1")[_0x51ae[0]])||0;var c5=parseInt(document[_0x51ae[1]]("coin5")[_0x51ae[0]])||0;var c10=parseInt(document[_0x51ae[1]]("coin10")[_0x51ae[0]])||0;var c50c=parseInt(document[_0x51ae[1]]("coin50_cup")[_0x51ae[0]])||0;var n1000=parseInt(document[_0x51ae[1]]("note1000")[_0x51ae[0]])||0;var n100=parseInt(document[_0x51ae[1]]("note100")[_0x51ae[0]])||0;var c50l=parseInt(document[_0x51ae[1]]("coin50_loose")[_0x51ae[0]])||0;var t1=c1*50;var t5=c5*200;var t10=c10*300;var t50c=c50c*500;var t1000=n1000*1000;var t100=n100*100;var t50l=c50l*50;document[_0x51ae[1]]("sub1")[_0x51ae[2]]=t1[_0x51ae[3]]();document[_0x51ae[1]]("sub5")[_0x51ae[2]]=t5[_0x51ae[3]]();document[_0x51ae[1]]("sub10")[_0x51ae[2]]=t10[_0x51ae[3]]();document[_0x51ae[1]]("sub50_cup")[_0x51ae[2]]=t50c[_0x51ae[3]]();document[_0x51ae[1]]("sub1000")[_0x51ae[2]]=t1000[_0x51ae[3]]();document[_0x51ae[1]]("sub100")[_0x51ae[2]]=t100[_0x51ae[3]]();document[_0x51ae[1]]("sub50_loose")[_0x51ae[2]]=t50l[_0x51ae[3]]();var gt=t1+t5+t10+t50c+t1000+t100+t50l;document[_0x51ae[1]]("grandTotal")[_0x51ae[2]]=gt[_0x51ae[3]]();var diff=25000-gt;var card=document[_0x51ae[1]]("resultCard");var title=document[_0x51ae[1]]("resultTitle");var finalRes=document[_0x51ae[1]]("finalResult");var hint=document[_0x51ae[1]]("resultHint");if(gt===0){finalRes[_0x51ae[2]]="0";title[_0x51ae[2]]="2. 收銀機分配計算結果";hint[_0x51ae[2]]="請輸入上方數量開始計算";card[_0x51ae[4]][_0x51ae[5]]=_0x51ae[6]}else{if(diff>0){finalRes[_0x51ae[2]]="+"+diff[_0x51ae[3]]();title[_0x51ae[2]]="2. 【需從收銀機拿錢】補足金庫";hint[_0x51ae[2]]="金庫還少 $"+diff[_0x51ae[3]]()+" 元，請自收銀機挪移補足";card[_0x51ae[4]][_0x51ae[5]]=_0x51ae[7]}else{if(diff<0){var absDiff=Math.abs(diff);finalRes[_0x51ae[2]]="-"+absDiff[_0x51ae[3]]();title[_0x51ae[2]]="2. 【溢出金額】請放回收銀機";hint[_0x51ae[2]]="金庫已滿兩萬五，多餘的 $"+absDiff[_0x51ae[3]]()+" 元請放回收銀機";card[_0x51ae[4]][_0x51ae[5]]=_0x51ae[8]}else{finalRes[_0x51ae[2]]="0";title[_0x51ae[2]]="2. 金額剛剛好！";hint[_0x51ae[2]]="剛好滿兩萬五，無需與收銀機進行金流挪移";card[_0x51ae[4]][_0x51ae[5]]=_0x51ae[9]}}}}function resetForm(){document[_0x51ae[10]](_0x51ae[11])[_0x51ae[12]](function(input){input[_0x51ae[0]]="0"});calculateTotal()}
+    // 🟢 白話文核心：完全修正欄位抓取與運作邏輯，保證不再出錯
+    function stepChange(id, val) {
+        var inputElement = document.getElementById(id);
+        var current = parseInt(inputElement.value) || 0;
+        current += val;
+        if (current < 0) current = 0;
+        inputElement.value = current;
+        calculateTotal();
+    }
+
+    function calculateTotal() {
+        // 1. 抓取所有輸入框的數值
+        var c1 = parseInt(document.getElementById("coin1").value) || 0;
+        var c5 = parseInt(document.getElementById("coin5").value) || 0;
+        var c10 = parseInt(document.getElementById("coin10").value) || 0;
+        var c50c = parseInt(document.getElementById("coin50_cup").value) || 0;
+        var n1000 = parseInt(document.getElementById("note1000").value) || 0;
+        var n100 = parseInt(document.getElementById("note100").value) || 0;
+        var c50l = parseInt(document.getElementById("coin50_loose").value) || 0;
+
+        // 2. 計算各欄位小計
+        var t1 = c1 * 50;
+        var t5 = c5 * 200;
+        var t10 = c10 * 300;
+        var t50c = c50c * 500;
+        var t1000 = n1000 * 1000;
+        var t100 = n100 * 100;
+        var t50l = c50l * 50;
+
+        // 3. 將小計渲染至畫面上
+        document.getElementById("sub1").innerText = t1.toLocaleString();
+        document.getElementById("sub5").innerText = t5.toLocaleString();
+        document.getElementById("sub10").innerText = t10.toLocaleString();
+        document.getElementById("sub50_cup").innerText = t50c.toLocaleString();
+        document.getElementById("sub1000").innerText = t1000.toLocaleString();
+        document.getElementById("sub100").innerText = t100.toLocaleString();
+        document.getElementById("sub50_loose").innerText = t50l.toLocaleString();
+
+        // 4. 計算清點總額
+        var gt = t1 + t5 + t10 + t50c + t1000 + t100 + t50l;
+        document.getElementById("grandTotal").innerText = gt.toLocaleString();
+
+        // 5. 根據應留存總額（25000）計算分配結果與變更字樣顏色
+        var diff = 25000 - gt;
+        var card = document.getElementById("resultCard");
+        var title = document.getElementById("resultTitle");
+        var finalRes = document.getElementById("finalResult");
+        var hint = document.getElementById("resultHint");
+
+        if (gt === 0) {
+            finalRes.innerText = "0";
+            title.innerText = "2. 收銀機分配計算結果";
+            hint.innerText = "請輸入上方數量開始計算";
+            card.style.background = "linear-gradient(135deg, #2c3e50, #1a252f)";
+        } else {
+            if (diff > 0) {
+                finalRes.innerText = "+" + diff.toLocaleString();
+                title.innerText = "2. 【需從收銀機拿錢】補足金庫";
+                hint.innerText = "金庫還少 $" + diff.toLocaleString() + " 元，請自收銀機挪移補足";
+                card.style.background = "linear-gradient(135deg, #d35400, #e67e22)";
+            } else if (diff < 0) {
+                var absDiff = Math.abs(diff);
+                finalRes.innerText = "-" + absDiff.toLocaleString();
+                title.innerText = "2. 【溢出金額】請放回收銀機";
+                hint.innerText = "金庫已滿兩萬五，多餘的 $" + absDiff.toLocaleString() + " 元請放回收銀機";
+                card.style.background = "linear-gradient(135deg, #27ae60, #2ecc71)";
+            } else {
+                finalRes.innerText = "0";
+                title.innerText = "2. 金額剛剛好！";
+                hint.innerText = "剛好滿兩萬五，無需與收銀機進行金流挪移";
+                card.style.background = "linear-gradient(135deg, #2980b9, #3498db)";
+            }
+        }
+    }
+
+    function resetForm() {
+        var inputs = document.querySelectorAll('input[type="number"]');
+        inputs.forEach(function(input) {
+            input.value = "0";
+        });
+        calculateTotal();
+    }
 </script>
 </body>
 </html>
