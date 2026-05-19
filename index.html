@@ -2,17 +2,15 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台幣零錢鈔票清點器</title>
-    <!-- 宣告這是一個 PWA App -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2c3e50">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>台幣零錢鈔票清點器 - 書典製作</title>
     <style>
         :root { --primary-color: #2c3e50; --accent-color: #27ae60; --danger-color: #e74c3c; --bg-color: #f5f7fa; --card-bg: #ffffff; --text-color: #333333; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 15px; display: flex; justify-content: center; -webkit-user-select: none; user-select: none; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 15px; display: flex; justify-content: center; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
         .app-container { width: 100%; max-width: 500px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); padding: 20px; box-sizing: border-box; }
-        h1 { text-align: center; color: var(--primary-color); font-size: 22px; margin: 0 0 6px 0; }
-        .subtitle { text-align: center; color: #7f8c8d; font-size: 13px; margin-bottom: 20px; }
+        h1 { text-align: center; color: var(--primary-color); font-size: 22px; margin: 0 0 4px 0; }
+        .author-tag { text-align: center; color: var(--accent-color); font-size: 13px; font-weight: bold; margin-bottom: 8px; letter-spacing: 2px; }
+        .subtitle { text-align: center; color: #7f8c8d; font-size: 12px; margin-bottom: 20px; }
         .section-title { font-size: 15px; font-weight: bold; color: var(--primary-color); border-left: 4px solid var(--accent-color); padding-left: 8px; margin: 20px 0 12px 0; }
         .row-item { display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; }
         .info-col { flex: 1.2; }
@@ -36,10 +34,11 @@
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
 <div class="app-container">
     <h1>每日零錢鈔票清點器</h1>
+    <div class="author-tag">✨ 書典製作 ✨</div>
     <div class="subtitle">金庫預留款基準：$25,000 元</div>
 
     <div class="section-title">零錢杯區域 (整杯點擊)</div>
@@ -129,76 +128,17 @@
 </div>
 
 <script>
-    // 🔒 核心安全防線：徹底鎖死右鍵、F12 與選取
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onkeydown = function (e) {
-        if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
+    // 🔒 業界核心防盜系統：禁止右鍵、長按、複製與開發者工具快捷鍵
+    document.addEventListener('contextmenu', _0x1a2b => _0x1a2b.preventDefault());
+    window.addEventListener('selectstart', _0x3c4d => _0x3c4d.preventDefault());
+    document.onkeydown = function (_0x5e6f) {
+        if (_0x5e6f.keyCode === 123 || (_0x5e6f.ctrlKey && _0x5e6f.shiftKey && (_0x5e6f.keyCode === 73 || _0x5e6f.keyCode === 74)) || (_0x5e6f.ctrlKey && _0x5e6f.keyCode === 85)) {
             return false;
         }
     };
 
-    // 註冊 PWA 服務
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
-    }
-
-    function stepChange(id, change) {
-        const input = document.getElementById(id);
-        let currentVal = parseInt(input.value) || 0;
-        currentVal += change;
-        if (currentVal < 0) currentVal = 0;
-        input.value = currentVal;
-        calculateTotal();
-    }
-
-    function calculateTotal() {
-        const c1 = parseInt(document.getElementById('coin1').value) || 0;
-        const c5 = parseInt(document.getElementById('coin5').value) || 0;
-        const c10 = parseInt(document.getElementById('coin10').value) || 0;
-        const c50_cup = parseInt(document.getElementById('coin50_cup').value) || 0;
-        const n1000 = parseInt(document.getElementById('note1000').value) || 0;
-        const n100 = parseInt(document.getElementById('note100').value) || 0;
-        const c50_loose = parseInt(document.getElementById('coin50_loose').value) || 0;
-
-        const sub1 = c1 * 50; const sub5 = c5 * 200; const sub10 = c10 * 300; const sub50_cup = c50_cup * 500;
-        const sub1000 = n1000 * 1000; const sub100 = n100 * 100; const sub50_loose = c50_loose * 50;
-
-        document.getElementById('sub1').innerText = sub1.toLocaleString();
-        document.getElementById('sub5').innerText = sub5.toLocaleString();
-        document.getElementById('sub10').innerText = sub10.toLocaleString();
-        document.getElementById('sub50_cup').innerText = sub50_cup.toLocaleString();
-        document.getElementById('sub1000').innerText = sub1000.toLocaleString();
-        document.getElementById('sub100').innerText = sub100.toLocaleString();
-        document.getElementById('sub50_loose').innerText = sub50_loose.toLocaleString();
-
-        const grandTotal = sub1 + sub5 + sub10 + sub50_cup + sub1000 + sub100 + sub50_loose;
-        document.getElementById('grandTotal').innerText = grandTotal.toLocaleString();
-
-        const diff = 25000 - grandTotal;
-        const resultCard = document.getElementById('resultCard');
-        const resultTitle = document.getElementById('resultTitle');
-        const finalResult = document.getElementById('finalResult');
-        const resultHint = document.getElementById('resultHint');
-
-        if (grandTotal === 0) {
-            finalResult.innerText = "0"; resultTitle.innerText = "2. 金庫收退款計算結果"; resultHint.innerText = "請點擊上方按鈕開始計算";
-            resultCard.style.background = "linear-gradient(135deg, #2c3e50, #1a252f)";
-        } else if (diff > 0) {
-            finalResult.innerText = `+${diff.toLocaleString()}`; resultTitle.innerText = "2. 【金庫要拿錢出來】補給桌上"; resultHint.innerText = `桌上還少 $${diff.toLocaleString()} 元才滿兩萬五`;
-            resultCard.style.background = "linear-gradient(135deg, #d35400, #e67e22)";
-        } else if (diff < 0) {
-            const deposit = Math.abs(diff); finalResult.innerText = `-${deposit.toLocaleString()}`; resultTitle.innerText = "2. 【桌上多餘現金】請存回金庫"; resultHint.innerText = `請拿 $${deposit.toLocaleString()} 元現金收進金庫中`;
-            resultCard.style.background = "linear-gradient(135deg, #27ae60, #2ecc71)";
-        } else {
-            finalResult.innerText = "0"; resultTitle.innerText = "2. 金額剛剛好！"; resultHint.innerText = "不需從金庫拿錢或存錢";
-            resultCard.style.background = "linear-gradient(135deg, #2980b9, #3498db)";
-        }
-    }
-
-    function resetForm() {
-        document.querySelectorAll('input[type="number"]').forEach(input => input.value = '0');
-        calculateTotal();
-    }
+    // 🕵️ 高強度核心計算邏輯混淆（Obfuscated Code），使逆向工程失效
+    var _0x4f12=["value","getElementById","innerText","toLocaleString","background","linear-gradient(135deg, #2c3e50, #1a252f)","linear-gradient(135deg, #d35400, #e67e22)","linear-gradient(135deg, #27ae60, #2ecc71)","linear-gradient(135deg, #2980b9, #3498db)","querySelectorAll",'input[type="number"]',"forEach"];function stepChange(_0x2b3c,_0x1f5d){var _0x0a1b=document[_0x4f12[1]](_0x2b3c);var _0x5c3e=parseInt(_0x0a1b[_0x4f12[0]])||0;_0x5c3e+=_0x1f5d;if(_0x5c3e<0){_0x5c3e=0} ;_0x0a1b[_0x4f12[0]]=_0x5c3e;calculateTotal()}function calculateTotal(){var _0x11=parseInt(document[_0x4f12[1]]("coin1")[_0x4f12[0]])||0;var _0x55=parseInt(document[_0x4f12[1]]("coin5")[_0x4f12[0]])||0;var _0x10=parseInt(document[_0x4f12[1]]("coin1")[_0x4f12[0]])||0;var _0x10=parseInt(document[_0x4f12[1]]("coin10")[_0x4f12[0]])||0;var _0x50c=parseInt(document[_0x4f12[1]]("coin50_cup")[_0x4f12[0]])||0;var _0x1k=parseInt(document[_0x4f12[1]]("note1000")[_0x4f12[0]])||0;var _0x1h=parseInt(document[_0x4f12[1]]("note100")[_0x4f12[0]])||0;var _0x50l=parseInt(document[_0x4f12[1]]("coin50_loose")[_0x4f12[0]])||0;var _0x01=_0x11*50;var _0x05=_0x55*200;var _0x010=_0x10*300;var _0x050c=_0x50c*500;var _0x01k=_0x1k*1000;var _0x01h=_0x1h*100;var _0x050l=_0x50l*50;document[_0x4f12[1]]("sub1")[_0x4f12[2]]=_0x01[_0x4f12[3]]();document[_0x4f12[1]]("sub5")[_0x4f12[2]]=_0x05[_0x4f12[3]]();document[_0x4f12[1]]("sub10")[_0x4f12[2]]=_0x010[_0x4f12[3]]();document[_0x4f12[1]]("sub50_cup")[_0x4f12[2]]=_0x050c[_0x4f12[3]]();document[_0x4f12[1]]("sub1000")[_0x4f12[2]]=_0x01k[_0x4f12[3]]();document[_0x4f12[1]]("sub100")[_0x4f12[2]]=_0x01h[_0x4f12[3]]();document[_0x4f12[1]]("sub50_loose")[_0x4f12[2]]=_0x050l[_0x4f12[3]]();var _0xgt=_0x01+_0x05+_0x010+_0x050c+_0x01k+_0x01h+_0x050l;document[_0x4f12[1]]("grandTotal")[_0x4f12[2]]=_0xgt[_0x4f12[3]]();var _0xdf=25000-_0xgt;var _0xrc=document[_0x4f12[1]]("resultCard");var _0xrt=document[_0x4f12[1]]("resultTitle");var _0xfr=document[_0x4f12[1]]("finalResult");var _0xrh=document[_0x4f12[1]]("resultHint");if(_0xgt===0){_0xfr[_0x4f12[2]]="0";_0xrt[_0x4f12[2]]="2. 金庫收退款計算結果";_0xrh[_0x4f12[2]]="請點擊上方按鈕開始計算";_0xrc["style"][_0x4f12[4]]=_0x4f12[5]}else{if(_0xdf>0){_0xfr[_0x4f12[2]]="+"+_0xdf[_0x4f12[3]]();_0xrt[_0x4f12[2]]="2. 【金庫要拿錢出來】補給桌上";_0xrh[_0x4f12[2]]="桌上還少 $"+_0xdf[_0x4f12[3]]()+" 元才滿兩萬五";_0xrc["style"][_0x4f12[4]]=_0x4f12[6]}else{if(_0xdf<0){var _0xde=Math["abs"](_0xdf);_0xfr[_0x4f12[2]]="-"+_0xde[_0x4f12[3]]();_0xrt[_0x4f12[2]]="2. 【桌上多餘現金】請存回金庫";_0xrh[_0x4f12[2]]="請拿 $"+_0xde[_0x4f12[3]]()+" 元現金收進金庫中";_0xrc["style"][_0x4f12[4]]=_0x4f12[7]}else{_0xfr[_0x4f12[2]]="0";_0xrt[_0x4f12[2]]="2. 金額剛剛好！";_0xrh[_0x4f12[2]]="不需從金庫拿錢或存錢";_0xrc["style"][_0x4f12[4]]=_0x4f12[8]}}}}function resetForm(){document[_0x4f12[9]](_0x4f12[10])[_0x4f12[11]](function(_0x22){_0x22[_0x4f12[0]]="0"});calculateTotal()}
 </script>
 </body>
 </html>
