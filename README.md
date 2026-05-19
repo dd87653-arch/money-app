@@ -1,1 +1,205 @@
-make ur life funny D_D
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台幣零錢鈔票清點器</title>
+    <!-- 宣告這是一個 PWA App -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2c3e50">
+    <style>
+        :root { --primary-color: #2c3e50; --accent-color: #27ae60; --danger-color: #e74c3c; --bg-color: #f5f7fa; --card-bg: #ffffff; --text-color: #333333; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 15px; display: flex; justify-content: center; -webkit-user-select: none; user-select: none; }
+        .app-container { width: 100%; max-width: 500px; background: var(--card-bg); border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); padding: 20px; box-sizing: border-box; }
+        h1 { text-align: center; color: var(--primary-color); font-size: 22px; margin: 0 0 6px 0; }
+        .subtitle { text-align: center; color: #7f8c8d; font-size: 13px; margin-bottom: 20px; }
+        .section-title { font-size: 15px; font-weight: bold; color: var(--primary-color); border-left: 4px solid var(--accent-color); padding-left: 8px; margin: 20px 0 12px 0; }
+        .row-item { display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; }
+        .info-col { flex: 1.2; }
+        .formula-label { font-size: 14px; font-weight: bold; }
+        .formula-detail { font-size: 11px; color: #7f8c8d; margin-top: 2px; }
+        .control-col { display: flex; align-items: center; background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; overflow: hidden; width: 130px; height: 36px; }
+        .btn-calc { width: 40px; height: 100%; border: none; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .btn-minus { background: #fff5f5; color: var(--danger-color); }
+        .btn-plus { background: #f0fff4; color: var(--accent-color); }
+        .subtotal-col { flex: 1; text-align: right; font-weight: bold; color: var(--primary-color); font-size: 15px; }
+        .static-row { display: flex; justify-content: space-between; align-items: center; background: #fff5f5; padding: 12px; border-radius: 10px; font-size: 14px; }
+        .total-box { background: #f1f2f6; color: var(--primary-color); border-radius: 12px; padding: 12px; text-align: center; margin-top: 20px; border: 1px solid #dcdde1; }
+        .result-box { background: linear-gradient(135deg, #2c3e50, #1a252f); color: white; border-radius: 12px; padding: 16px; text-align: center; margin-top: 12px; }
+        .box-title { font-size: 13px; opacity: 0.9; margin-bottom: 4px; }
+        .box-amount { font-size: 20px; font-weight: bold; }
+        .result-box .box-amount { font-size: 28px; font-weight: 800; }
+        .hint-text { font-size: 12px; margin-top: 6px; color: #ffbe76; }
+        .btn-reset { width: 100%; background: #7f8c8d; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 16px; }
+        input[type="number"] { width: 100%; border: none; text-align: center; font-size: 16px; font-weight: bold; color: var(--primary-color); background: transparent; }
+        input[type="number"]:focus { outline: none; }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <h1>每日零錢鈔票清點器</h1>
+    <div class="subtitle">金庫預留款基準：$25,000 元</div>
+
+    <div class="section-title">零錢杯區域 (整杯點擊)</div>
+    <div class="row-item">
+        <div class="info-col"><div class="formula-label">1元硬幣</div><div class="formula-detail">50個 ($50/杯)</div></div>
+        <div class="control-col">
+            <button class="btn-calc btn-minus" onclick="stepChange('coin1', -1)">－</button>
+            <div class="input-wrapper"><input type="number" id="coin1" min="0" value="0" oninput="calculateTotal()"></div>
+            <button class="btn-calc btn-plus" onclick="stepChange('coin1', 1)">＋</button>
+        </div>
+        <div class="subtotal-col">$ <span id="sub1">0</span></div>
+    </div>
+    <div class="row-item">
+        <div class="info-col"><div class="formula-label">5元硬幣</div><div class="formula-detail">40個 ($200/杯)</div></div>
+        <div class="control-col">
+            <button class="btn-calc btn-minus" onclick="stepChange('coin5', -1)">－</button>
+            <div class="input-wrapper"><input type="number" id="coin5" min="0" value="0" oninput="calculateTotal()"></div>
+            <button class="btn-calc btn-plus" onclick="stepChange('coin5', 1)">＋</button>
+        </div>
+        <div class="subtotal-col">$ <span id="sub5">0</span></div>
+    </div>
+    <div class="row-item">
+        <div class="info-col"><div class="formula-label">10元硬幣</div><div class="formula-detail">30個 ($300/杯)</div></div>
+        <div class="control-col">
+            <button class="btn-calc btn-minus" onclick="stepChange('coin10', -1)">－</button>
+            <div class="input-wrapper"><input type="number" id="coin10" min="0" value="0" oninput="calculateTotal()"></div>
+            <button class="btn-calc btn-plus" onclick="stepChange('coin10', 1)">＋</button>
+        </div>
+        <div class="subtotal-col">$ <span id="sub10">0</span></div>
+    </div>
+    <div class="row-item">
+        <div class="info-col"><div class="formula-label">50元硬幣</div><div class="formula-detail">10個 ($500/杯)</div></div>
+        <div class="control-col">
+            <button class="btn-calc btn-minus" onclick="stepChange('coin50_cup', -1)">－</button>
+            <div class="input-wrapper"><input type="number" id="coin50_cup" min="0" value="0" oninput="calculateTotal()"></div>
+            <button class="btn-calc btn-plus" onclick="stepChange('coin50_cup', 1)">＋</button>
+        </div>
+        <div class="subtotal-col">$ <span id="sub50_cup">0</span></div>
+    </div>
+
+    <div class="section-title">抽屜收納盒 (張數與散錢)</div>
+    <div class="row-item">
+        <div class="info-col"><div class="formula-label">1000元鈔</div><div class="formula-detail">面額 $1,000 / 張</div></div>
+        <div class="control-col">
+            <button class="btn-calc btn-minus" onclick="stepChange('note1000', -1)">－</button>
+            <div class="input-wrapper"><input type="number" id="note1000" min="0" value="0" oninput="calculateTotal()"></div>
+            <button class="btn-calc btn-plus" onclick="stepChange('note1000', 1)">＋</button>
+        </div>
+        <div class="subtotal-col">$ <span id="sub1000">0</span></div>
+    </div>
+    <div class="row-item">
+        <div class="info-col"><div class="formula-label">100元鈔</div><div class="formula-detail">面額 $100 / 張</div></div>
+        <div class="control-col">
+            <button class="btn-calc btn-minus" onclick="stepChange('note100', -1)">－</button>
+            <div class="input-wrapper"><input type="number" id="note100" min="0" value="0" oninput="calculateTotal()"></div>
+            <button class="btn-calc btn-plus" onclick="stepChange('note100', 1)">＋</button>
+        </div>
+        <div class="subtotal-col">$ <span id="sub100">0</span></div>
+    </div>
+    <div class="row-item">
+        <div class="info-col"><div class="formula-label">散裝 50元</div><div class="formula-detail">未滿一杯的散錢</div></div>
+        <div class="control-col">
+            <button class="btn-calc btn-minus" onclick="stepChange('coin50_loose', -1)">－</button>
+            <div class="input-wrapper"><input type="number" id="coin50_loose" min="0" value="0" oninput="calculateTotal()"></div>
+            <button class="btn-calc btn-plus" onclick="stepChange('coin50_loose', 1)">＋</button>
+        </div>
+        <div class="subtotal-col">$ <span id="sub50_loose">0</span></div>
+    </div>
+
+    <div class="section-title">固定扣除項目</div>
+    <div class="static-row">
+        <div class="formula-label" style="color: var(--danger-color);">[ 扣除 ] 預留金庫款</div>
+        <div class="subtotal-col" style="color: var(--danger-color); font-size: 16px;">$ 25,000</div>
+    </div>
+
+    <div class="total-box">
+        <div class="box-title">1. 桌上清點總金額</div>
+        <div class="box-amount">$ <span id="grandTotal">0</span></div>
+    </div>
+    <div class="result-box" id="resultCard">
+        <div class="box-title" id="resultTitle">2. 金庫收退款計算結果</div>
+        <div class="box-amount">$ <span id="finalResult">0</span></div>
+        <div class="hint-text" id="resultHint">請點擊上方按鈕開始計算</div>
+    </div>
+
+    <button class="btn-reset" onclick="resetForm()">一鍵清空重算</button>
+</div>
+
+<script>
+    // 🔒 核心安全防線：徹底鎖死右鍵、F12 與選取
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = function (e) {
+        if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || (e.ctrlKey && e.keyCode === 85)) {
+            return false;
+        }
+    };
+
+    // 註冊 PWA 服務
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+    }
+
+    function stepChange(id, change) {
+        const input = document.getElementById(id);
+        let currentVal = parseInt(input.value) || 0;
+        currentVal += change;
+        if (currentVal < 0) currentVal = 0;
+        input.value = currentVal;
+        calculateTotal();
+    }
+
+    function calculateTotal() {
+        const c1 = parseInt(document.getElementById('coin1').value) || 0;
+        const c5 = parseInt(document.getElementById('coin5').value) || 0;
+        const c10 = parseInt(document.getElementById('coin10').value) || 0;
+        const c50_cup = parseInt(document.getElementById('coin50_cup').value) || 0;
+        const n1000 = parseInt(document.getElementById('note1000').value) || 0;
+        const n100 = parseInt(document.getElementById('note100').value) || 0;
+        const c50_loose = parseInt(document.getElementById('coin50_loose').value) || 0;
+
+        const sub1 = c1 * 50; const sub5 = c5 * 200; const sub10 = c10 * 300; const sub50_cup = c50_cup * 500;
+        const sub1000 = n1000 * 1000; const sub100 = n100 * 100; const sub50_loose = c50_loose * 50;
+
+        document.getElementById('sub1').innerText = sub1.toLocaleString();
+        document.getElementById('sub5').innerText = sub5.toLocaleString();
+        document.getElementById('sub10').innerText = sub10.toLocaleString();
+        document.getElementById('sub50_cup').innerText = sub50_cup.toLocaleString();
+        document.getElementById('sub1000').innerText = sub1000.toLocaleString();
+        document.getElementById('sub100').innerText = sub100.toLocaleString();
+        document.getElementById('sub50_loose').innerText = sub50_loose.toLocaleString();
+
+        const grandTotal = sub1 + sub5 + sub10 + sub50_cup + sub1000 + sub100 + sub50_loose;
+        document.getElementById('grandTotal').innerText = grandTotal.toLocaleString();
+
+        const diff = 25000 - grandTotal;
+        const resultCard = document.getElementById('resultCard');
+        const resultTitle = document.getElementById('resultTitle');
+        const finalResult = document.getElementById('finalResult');
+        const resultHint = document.getElementById('resultHint');
+
+        if (grandTotal === 0) {
+            finalResult.innerText = "0"; resultTitle.innerText = "2. 金庫收退款計算結果"; resultHint.innerText = "請點擊上方按鈕開始計算";
+            resultCard.style.background = "linear-gradient(135deg, #2c3e50, #1a252f)";
+        } else if (diff > 0) {
+            finalResult.innerText = `+${diff.toLocaleString()}`; resultTitle.innerText = "2. 【金庫要拿錢出來】補給桌上"; resultHint.innerText = `桌上還少 $${diff.toLocaleString()} 元才滿兩萬五`;
+            resultCard.style.background = "linear-gradient(135deg, #d35400, #e67e22)";
+        } else if (diff < 0) {
+            const deposit = Math.abs(diff); finalResult.innerText = `-${deposit.toLocaleString()}`; resultTitle.innerText = "2. 【桌上多餘現金】請存回金庫"; resultHint.innerText = `請拿 $${deposit.toLocaleString()} 元現金收進金庫中`;
+            resultCard.style.background = "linear-gradient(135deg, #27ae60, #2ecc71)";
+        } else {
+            finalResult.innerText = "0"; resultTitle.innerText = "2. 金額剛剛好！"; resultHint.innerText = "不需從金庫拿錢或存錢";
+            resultCard.style.background = "linear-gradient(135deg, #2980b9, #3498db)";
+        }
+    }
+
+    function resetForm() {
+        document.querySelectorAll('input[type="number"]').forEach(input => input.value = '0');
+        calculateTotal();
+    }
+</script>
+</body>
+</html>
+
