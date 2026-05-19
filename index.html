@@ -13,14 +13,23 @@
         .subtitle { text-align: center; color: #7f8c8d; font-size: 12px; margin-bottom: 20px; }
         .section-title { font-size: 15px; font-weight: bold; color: var(--primary-color); border-left: 4px solid var(--accent-color); padding-left: 8px; margin: 20px 0 12px 0; }
         .row-item { display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; }
-        .info-col { flex: 1.2; }
+        .info-col { flex: 1.2; min-width: 90px; }
         .formula-label { font-size: 14px; font-weight: bold; }
         .formula-detail { font-size: 11px; color: #7f8c8d; margin-top: 2px; }
+        
+        /* 一般常規控制項寬度 */
         .control-col { display: flex; align-items: center; background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; overflow: hidden; width: 130px; height: 36px; }
-        .btn-calc { width: 40px; height: 100%; border: none; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .btn-minus { background: #fff5f5; color: var(--danger-color); }
-        .btn-plus { background: #f0fff4; color: var(--accent-color); }
-        .subtotal-col { flex: 1; text-align: right; font-weight: bold; color: var(--primary-color); font-size: 15px; }
+        /* 仟鈔專用控制項寬度（容納更多按鈕） */
+        .control-col-wide { display: flex; align-items: center; background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; overflow: hidden; width: 190px; height: 36px; }
+        
+        .btn-calc { width: 40px; height: 100%; border: none; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .btn-minus { background: #fff5f5; color: var(--danger-color); width: 35px; }
+        .btn-plus { background: #f0fff4; color: var(--accent-color); width: 35px; }
+        .btn-quick { background: #ebf5fb; color: #2980b9; font-size: 12px; border-right: 1px solid #e1e8ed; width: 40px; }
+        .btn-quick:last-of-type { border-right: none; }
+        
+        .input-wrapper { flex: 1; min-width: 40px; }
+        .subtotal-col { flex: 1; text-align: right; font-weight: bold; color: var(--primary-color); font-size: 15px; min-width: 70px; }
         .static-row { display: flex; justify-content: space-between; align-items: center; background: #fff5f5; padding: 12px; border-radius: 10px; font-size: 14px; }
         .total-box { background: #f1f2f6; color: var(--primary-color); border-radius: 12px; padding: 12px; text-align: center; margin-top: 20px; border: 1px solid #dcdde1; }
         .result-box { background: linear-gradient(135deg, #2c3e50, #1a252f); color: white; border-radius: 12px; padding: 16px; text-align: center; margin-top: 12px; }
@@ -80,12 +89,15 @@
     </div>
 
     <div class="section-title">抽屜收納盒 (張數與散錢)</div>
+    <!-- ⚡ 仟鈔專區：特別拓寬控制項並加入快捷鍵 ⚡ -->
     <div class="row-item">
         <div class="info-col"><div class="formula-label">1000元鈔</div><div class="formula-detail">面額 $1,000 / 張</div></div>
-        <div class="control-col">
+        <div class="control-col-wide">
             <button class="btn-calc btn-minus" onclick="stepChange('note1000', -1)">－</button>
             <div class="input-wrapper"><input type="number" id="note1000" min="0" value="0" oninput="calculateTotal()"></div>
             <button class="btn-calc btn-plus" onclick="stepChange('note1000', 1)">＋</button>
+            <button class="btn-calc btn-quick" onclick="stepChange('note1000', 5)">+5</button>
+            <button class="btn-calc btn-quick" onclick="stepChange('note1000', 10)">+10</button>
         </div>
         <div class="subtotal-col">$ <span id="sub1000">0</span></div>
     </div>
@@ -137,7 +149,7 @@
         }
     };
 
-    // 🕵️ 高強度核心計算邏輯混淆（Obfuscated Code），符合金庫核算邏輯
+    // 🕵️ 高強度核心計算邏輯混淆（Obfuscated Code），優化支援快捷加載
     var _0x4f12=["value","getElementById","innerText","toLocaleString","background","linear-gradient(135deg, #2c3e50, #1a252f)","linear-gradient(135deg, #d35400, #e67e22)","linear-gradient(135deg, #27ae60, #2ecc71)","linear-gradient(135deg, #2980b9, #3498db)","querySelectorAll",'input[type="number"]',"forEach"];function stepChange(_0x2b3c,_0x1f5d){var _0x0a1b=document[_0x4f12[1]](_0x2b3c);var _0x5c3e=parseInt(_0x0a1b[_0x4f12[0]])||0;_0x5c3e+=_0x1f5d;if(_0x5c3e<0){_0x5c3e=0} ;_0x0a1b[_0x4f12[0]]=_0x5c3e;calculateTotal()}function calculateTotal(){var _0x11=parseInt(document[_0x4f12[1]]("coin1")[_0x4f12[0]])||0;var _0x55=parseInt(document[_0x4f12[1]]("coin5")[_0x4f12[0]])||0;var _0x10=parseInt(document[_0x4f12[1]]("coin10")[_0x4f12[0]])||0;var _0x50c=parseInt(document[_0x4f12[1]]("coin50_cup")[_0x4f12[0]])||0;var _0x1k=parseInt(document[_0x4f12[1]]("note1000")[_0x4f12[0]])||0;var _0x1h=parseInt(document[_0x4f12[1]]("note100")[_0x4f12[0]])||0;var _0x50l=parseInt(document[_0x4f12[1]]("coin50_loose")[_0x4f12[0]])||0;var _0x01=_0x11*50;var _0x05=_0x55*200;var _0x010=_0x10*300;var _0x050c=_0x50c*500;var _0x01k=_0x1k*1000;var _0x01h=_0x1h*100;var _0x050l=_0x50l*50;document[_0x4f12[1]]("sub1")[_0x4f12[2]]=_0x01[_0x4f12[3]]();document[_0x4f12[1]]("sub5")[_0x4f12[2]]=_0x05[_0x4f12[3]]();document[_0x4f12[1]]("sub10")[_0x4f12[2]]=_0x010[_0x4f12[3]]();document[_0x4f12[1]]("sub50_cup")[_0x4f12[2]]=_0x050c[_0x4f12[3]]();document[_0x4f12[1]]("sub1000")[_0x4f12[2]]=_0x01k[_0x4f12[3]]();document[_0x4f12[1]]("sub100")[_0x4f12[2]]=_0x01h[_0x4f12[3]]();document[_0x4f12[1]]("sub50_loose")[_0x4f12[2]]=_0x050l[_0x4f12[3]]();var _0xgt=_0x01+_0x05+_0x010+_0x050c+_0x01k+_0x01h+_0x050l;document[_0x4f12[1]]("grandTotal")[_0x4f12[2]]=_0xgt[_0x4f12[3]]();var _0xdf=25000-_0xgt;var _0xrc=document[_0x4f12[1]]("resultCard");var _0xrt=document[_0x4f12[1]]("resultTitle");var _0xfr=document[_0x4f12[1]]("finalResult");var _0xrh=document[_0x4f12[1]]("resultHint");if(_0xgt===0){_0xfr[_0x4f12[2]]="0";_0xrt[_0x4f12[2]]="2. 收銀機分配計算結果";_0xrh[_0x4f12[2]]="請輸入上方數量開始計算";_0xrc["style"][_0x4f12[4]]=_0x4f12[5]}else{if(_0xdf>0){_0xfr[_0x4f12[2]]="+"+_0xdf[_0x4f12[3]]();_0xrt[_0x4f12[2]]="2. 【需從收銀機拿錢】補足金庫";_0xrh[_0x4f12[2]]="金庫還少 $"+_0xdf[_0x4f12[3]]()+" 元，請自收銀機挪移補足";_0xrc["style"][_0x4f12[4]]=_0x4f12[6]}else{if(_0xdf<0){var _0xde=Math["abs"](_0xdf);_0xfr[_0x4f12[2]]="-"+_0xde[_0x4f12[3]]();_0xrt[_0x4f12[2]]="2. 【溢出金額】請放回收銀機";_0xrh[_0x4f12[2]]="金庫已滿兩萬五，多餘的 $"+_0xde[_0x4f12[3]]()+" 元請放回收銀機";_0xrc["style"][_0x4f12[4]]=_0x4f12[7]}else{_0xfr[_0x4f12[2]]="0";_0xrt[_0x4f12[2]]="2. 金額剛剛好！";_0xrh[_0x4f12[2]]="剛好滿兩萬五，無需與收銀機進行金流挪移";_0xrc["style"][_0x4f12[4]]=_0x4f12[8]}}}}function resetForm(){document[_0x4f12[9]](_0x4f12[10])[_0x4f12[11]](function(_0x22){_0x22[_0x4f12[0]]="0"});calculateTotal()}
 </script>
 </body>
